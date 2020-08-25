@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Sign In </title>
+</head>
+<link rel="stylesheet"  href="css/sing_in.css">
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+   <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+<body>
+
+
+  <?php
+
+ $key_captcha="6LfbUOQUAAAAAHZ3d6I3VsMkwYBcVY9csxEW3Za9";
+$private_key="6LfbUOQUAAAAAL3gaNSBgYyobpfyNmO76R867zu2";
+
+//captcha validation
+
+
+
+require_once  '/captcha/autoload.php' ; 
+  if(isset($_POST['submitpost']) ) {
+
+if(isset($_POST['g-recaptcha-response'])){
+
+$recaptcha  =  new  \ ReCaptcha \ ReCaptcha ( $private_key); 
+$resp  = $recaptcha->verify ( $_POST['g-recaptcha-response'] ); 
+
+if ( $resp->isSuccess() ) { $R4=4;} 
+ else { $errors = $resp->getErrorCodes (); 
+    $captcha_mess="remplisser le captcha ";
+    $R4=0;
+}
+ }           
+                              
+}
+
+//input conditions
+ $conn = new PDO("mysql:host=localhost;dbname=contacter","root","");
+  if(isset($_POST['submitpost'])){
+
+$pattern_Gn="/^[a-zA-Z0-9_]{3,12}$/";
+if(!preg_match($pattern_Gn, $_POST['User'])){
+  
+          $err_usr = "invalid user name form";
+                   $R1=0;     
+} else { $R1=1;
+  $sql="SELECT * FROM personnes WHERE Username=? ";
+  $st=$conn->prepare($sql);
+  $st->bindParam(1,$_POST['User']);
+  $st->execute();
+  $Ex=$st->fetch();
+  if ($Ex == 0 ){
+    $R1=1; 
+  }else {
+    $err_usr="username benn used ";$R1=0;
+  }
+}
+
+
+$pattern_mail= "/^([a-zA-Z0-9]+)([\_\-]{1,1}+)*([a-zA-Z0-9]+)*@([a-zA-Z0-9]+\.)+[a-z]{2,4}$/" ;
+
+if(!preg_match($pattern_mail, $_POST['mail'])){
+  
+  $err_mail = " invalid email format ";
+  $R2=0;
+} else {
+     
+ //  $conn = new PDO("mysql:host=localhost;dbname=contacter","root","");
+  $query="SELECT * FROM personnes WHERE Email= ?";
+  $stmt=$conn->prepare($query);
+  $stmt->bindParam(1,$_POST['mail']);
+  $stmt->execute();
+  $Exist= $stmt->fetch();
+
+ if ($Exist == 0){
+   $R2=2;
+ }else {
+  $err_mail="Email been used "; $R2=0;
+ }
+
+}
+
+
+$pattern_pass="/^(?=.*[0-9]+.*)(?=.*[a-zA-Z]+.*)[0-9a-zA-Z]{6,}$/";
+
+if(!preg_match($pattern_pass, $_POST['PSW'])){
+  $errPass = "it must contain at least 6 character ,1 letter 1 number   ";
+  $R3=0;
+}else {
+  $R3=3;
+}
+
+if (($R1  && $R2 && $R3 )!= 0) {
+           require "Senregistrer.php";
+} 
+
+}
+
+
+?>
+
+
+
+
+<div class="grid-container">
+
+       <div class="grid-item1"> <br>
+             
+  	 	<form id="login" class="input-group" action="" method="POST" > 
+
+  	 		<h1> Log In </h1> <br>
+  	    <div class="icon" >
+          	<i class="fa fa-google"></i>&nbsp;<!--bootstrape-->
+          	 <i class="fa fa-facebook-official"></i>&nbsp;
+              <i class="fa fa-twitter"></i>
+        </div>
+         <br>
+		  <input type="text"  class="input-field" placeholder="Username" name="Usr" required>
+        &nbsp;
+          <input type="password" class="input-field"  placeholder=" Password" name="Pswd" required> 
+         <div class="lost">  <a href="forgot_password.php">Lost your password?</a></div> <br><BR>
+         <button type="submit" class="submit-btn">Log In  </button> 
+         <div class="meow ">
+        Don't have an account ?<a href="#" onclick="register()"><b> Sing Up  </b> </a></div>
+           </form>  
+        
+	
+<form id="register" class="input-group"   method="POST" > 
+           <h1> Sign Up </h1> <br>
+
+    <div class="icon" id="ptn">
+          	<i class="fa fa-google"></i>&nbsp;
+          	 <i class="fa fa-facebook-official"></i>&nbsp;
+              <i class="fa fa-twitter"></i>
+    </div>
+		  <input type="text"  class="input-field" placeholder="Username" name="User" required>
+      
+       <?php echo isset($err_usr)?"<span  class='error'>{$err_usr}</span>":"" ; ?>
+
+          <input type="text"  class="input-field" placeholder="Email" name="mail" required>
+
+        <?php echo isset($err_mail)?"<span  class='error'>{$err_mail}</span>":"" ; ?>
+
+        <style> .error { font-size: 10px; color:red ; font-family: raleway;}   </style>
+
+          <input type="password" class="input-field"  placeholder=" Password"  name="PSW" required> 
+        
+          <?php echo isset( $errPass)?"<span  class='error'>{$errPass}</span>":"" ; ?>
+           <BR><BR>
+         <button type="submit" class="submit-btn" name="submitpost">Register  </button>     
+         <div class="sing ">
+         &nbsp;&nbsp;&nbsp;&nbsp;you have an account ?<a href="#" onclick="login()"><b>Login </b> </a></div>
+         <div class="g-recaptcha" data-sitekey="6LfbUOQUAAAAAHZ3d6I3VsMkwYBcVY9csxEW3Za9" style="transform: scale(0.85); "> </div>
+      <?php echo isset($captcha_mess)?"<span  class='errorC'>{$captcha_mess}</span>":"" ; ?>
+          <style> .errorC { font-size: 10px; color:red ; font-family: raleway; margin-left: 50px;}   </style>
+
+
+
+
+</form>    
+ </div>
+
+   <div class="grid-item2"> 
+   
+      <h3 id="myP" >Join Us Now! </h3>
+      
+  </div>
+</div>
+
+
+<script >
+	var x=document.getElementById("login");
+	var y=document.getElementById("register");
+	var z=document.getElementById("myP").innerHTML;
+    var name=document.getElementByClass("grid-item2");
+
+	function register() {
+		
+	   	x.style.left="400px";
+		y.style.left="20px";
+	  var w=z.replace("Welcome Back!","Join Us Now!"); 
+    document.getElementById("myP").innerHTML=w ;
+      
+
+	}
+	function login() {
+	
+
+        x.style.left="20px";
+		y.style.left="400px";
+
+	var w=z.replace("Join Us Now! ","Welcome Back!");
+	document.getElementById("myP").innerHTML = w;
+    
+
+   
+
+	}
+	
+</script>
+<script src="https://www.google.com/recaptcha/api.js"></script>
+</body>
+</html>

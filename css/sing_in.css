@@ -1,0 +1,170 @@
+*{
+	box-sizing: border-box;
+}
+body {
+	background-color: #faebd7;
+	color: #000;
+	 font-family: Bahnschrift SemiLight Condensed;
+	 animation-name: example;
+  animation-duration: 2s;
+  animation-iteration-count: 3;
+  
+}
+ @keyframes example {
+  0%   {background-color:#eeeeee; left:10px;}
+  50%  {background-color: #febead; left:200px;}
+  100% {background-color: #edc596; left:10px;}
+}
+
+.grid-container {
+ max-width: 790px;
+ height: 500px; /*453*/
+ padding-top: 2px;
+ background-color: #fff;
+ margin: 100px  260px;
+ display: grid;
+ grid-template-columns: repeat(2,1fr);
+ grid-gap:0px;/*espace entre les deux grid*/
+ grid-auto-rows: minmax(200px,auto);
+box-shadow: 5px 5px 20px ;
+
+
+}
+.grid-container >div {
+border:1px solid #fff;
+border-radius: 1px;
+background:#fff;
+padding: 0px;
+
+
+}
+
+
+.grid-container .grid-item2 {
+
+background-image: url(img/TA.png);
+background-size:cover;
+width: 390px;
+padding: 3px;
+background-color: #ffc3a0;
+
+}
+.grid-item2 h3 {
+  color:#530715;
+  margin: auto;
+  padding-top: 24px;
+  text-align: center;
+  font-size: 40px;
+  font-family: Book Antiqua;
+ text-shadow: 1px 1px 1px #530715;
+background: linear-gradient(to left ,#ffc3a0,#f28e7b);}
+ 
+span{
+  color: #000;
+}
+
+form h1
+{
+  color: #740a1f;
+  margin: auto;
+  padding-top: 0px;
+  margin-left: 0px;
+  text-align: center;
+  font-size: 40px;
+  font-family: Book Antiqua;
+  position: absolute;
+     left: 46px;
+     top: 0%;
+ 
+    
+}
+.grid-item1{
+           width: 360px;
+            height: 498px; 
+             margin: 0% auto;
+              background: #ffF;
+              padding:0px;
+             overflow: hidden;  
+               position: relative;
+}
+.input-group{
+ width: 280px;
+  position:absolute ;
+  margin-left: 40px;
+  transition: .5s;
+  
+}
+.input-field{
+width: 100%;
+padding: 10px 0;
+margin: 5px 0;
+border-left: 0;
+border-top: 0;
+
+border-bottom: 1px solid #999;
+  font-family: Berlin Sans FB;
+  outline: none;
+  background: transparent;
+
+
+}
+.submit-btn{
+   width: 60%;
+  padding: 6px 0px;
+  cursor: pointer;
+  display: block;
+  margin: auto;
+  outline: none;
+    border:0;
+    border-radius: 20px;
+    background:rgba(240,33,7,.6);    
+    font-size: 18px;
+    color: #fff;
+    font-family: Bahnschrift SemiLight Condensed;
+   
+  
+}
+.lost a{
+   font-size: 15px;
+   font-family: Bahnschrift SemiLight;
+    text-decoration: blink;
+      color: rgb(143,143,143);
+}
+
+.meow a {
+     font-size: 18px;
+   text-decoration: blink;
+      margin-left: 13px;
+   font-family: Bahnschrift SemiLight Condensed;
+color:#740a1f;
+}
+.sing  a {
+  
+   text-decoration: blink;
+   padding-top: 20px;
+    margin-left: 13px;
+   font-family: Bahnschrift SemiLight Condensed;
+     color:#740a1f;
+
+
+}
+#register  {
+ 
+         left: 30px;
+
+  
+}
+#login {
+  left: 450px;
+  
+}
+
+.grid-item1 .icon {
+ 
+ 
+  color: rgba(240,33,7,.6);
+  font-size: 27px;
+  margin-left: 70px;
+  padding-top: 50px;
+     
+}

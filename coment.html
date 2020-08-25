@@ -1,0 +1,163 @@
+<?php
+
+
+ if (isset($_GET['Psuedo'])){
+          
+ $Usr= urldecode(base64_decode($_GET['Psuedo']));
+
+
+ $conn = new PDO("mysql:host=localhost;dbname=contacter","root","");
+  $commentaires=$conn->prepare("SELECT * FROM forum ");
+  $commentaires->execute();
+  $c=$commentaires->fetchAll();
+	}
+	   
+
+       if (isset($_POST['btn']) ){
+                  $Com=$_POST['commentaires'];
+                  $Variable=0;
+       
+                                                               
+             if($Variable == 0 ) {
+          
+              
+
+           $conn = new PDO("mysql:host=localhost;dbname=contacter","root","");         
+          $INSERT="INSERT INTO forum (Comment,Pseudo) VALUES (?,?)";
+
+              $rep=$conn->prepare($INSERT);
+               $rep->bindParam(1, $Com);
+               $rep->bindParam(2,$Usr);
+               $rep->execute();
+            
+                
+    
+      $commentaires=$conn->prepare("SELECT * FROM forum");
+        $commentaires->execute();
+         $c=$commentaires->fetchAll();
+            $Variable=1;
+}
+      
+                              if (isset($_POST['valeur'])){
+                              $x=$_POST['valeur'];}
+
+      $rep=$conn->prepare("SELECT * FROM rating WHERE User_name=?");
+      $rep->bindParam(1,$Usr);
+      $rep->execute();
+      $result=$rep->fetch();
+      if($result == 0) { 
+              $INSERT="INSERT INTO rating (User_name,Value) VALUES (?,?)";
+              $rep=$conn->prepare($INSERT);
+               $rep->bindParam(1, $Usr);
+               $rep->bindParam(2,$x);
+               $rep->execute();
+            
+ } else {
+          $UPT="UPDATE  rating SET Value =? WHERE User_name=?";
+
+               $rep=$conn->prepare($UPT);
+               $rep->bindParam(1,$x);
+               $rep->bindParam(2,$Usr);
+               $rep->execute();
+}
+}
+
+?>
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+	<title>Comment space </title>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+
+</head>
+<link rel="stylesheet"  href="coment.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+
+<body >
+  
+ 
+   
+  <form method="POST">
+  <ul>
+    <button name="user">koko</button>
+   <button id="DNX">Decconexion </button>
+   </ul>
+  </form>
+
+
+  <div class="flex-container">
+  <div class="grid" id="item1">
+  	<div class="element">
+    <h2>Rate your experience: </h2>
+       <div class="test">
+<form method="POST">
+        what do you think about this app?
+        <div class="rating_1" >
+   <input type="checkbox" name="valeur" value="bad"> &nbsp;&nbsp;&nbsp;
+    <span class="fa fa-star checked"></span>
+     <span class="fa fa-star checked"></span>
+     <span class="fa fa-star "></span>
+    <span class="fa fa-star"></span>
+    <span class="fa fa-star"></span>  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+   <i class="fa fa-frown-o" aria-hidden="true"></i>
+       </div>
+    <div class="rating_1" >
+   <input type="checkbox" name="valeur" value="Good"> &nbsp;&nbsp;&nbsp;
+    <span class="fa fa-star checked"></span>
+     <span class="fa fa-star checked"></span>
+     <span class="fa fa-star checked"></span>
+    <span class="fa fa-star"></span>
+    <span class="fa fa-star"></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    <i class="fa fa-meh-o" aria-hidden="true"></i>
+       </div>
+    <div class="rating_1" >
+   <input type="checkbox" name="valeur" value="Perfect"> &nbsp;&nbsp;&nbsp;
+    <span class="fa fa-star checked"></span>
+     <span class="fa fa-star checked"></span>
+     <span class="fa fa-star checked"></span>
+    <span class="fa fa-star checked"></span>
+    <span class="fa fa-star checked"></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  <i class="fa fa-smile-o" aria-hidden="true"></i>
+
+       </div>
+<br>
+
+
+      </div>
+    <form method="POST" class="form-group">
+     <h2> Add a Comment </h2>
+     Help us to improve the experience 
+      <textarea name="commentaires"  required id="text"></textarea> <br> 
+      <input  type="submit" value="POST " name="btn" required id="btn"> 
+      
+    </form>
+    </form>
+   </div>
+   </div>
+   <div class="grid" id="item2">
+  	<h2 id="T2">Comments</h2>
+  	What other users think about this project ?
+      <br> <br>
+         <?php  foreach ( $c as $x) {   ?>
+       <div class="affichage">
+      <b id="Pseudo"><?= $x['Pseudo'] ;?> :</b>
+
+
+      <?= $x['Comment']; ?>
+     </div>
+      	  <br> <BR>
+
+      <?php  } ?>
+  </div>
+</div>
+
+
+
+
+
+
+
+</body>
+</html>

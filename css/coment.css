@@ -1,0 +1,175 @@
+body{
+    background-image: url("img/P2.png");
+    background-size: cover;
+    background-repeat: no-repeat;
+    height: cover;
+    margin: 0;
+  	animation: slide 3s ease forwards;
+}
+@keyframes slide {
+	0%{
+		 transform: scale(1.1);
+	}
+	100%{
+		transform: scale(1);
+	}
+}
+
+.flex-container {
+  display: flex;
+  height: 400px;
+  margin-top: 2%;
+}
+
+.grid {
+  background-color: #f1f1f1;
+  margin: 3px;
+  padding: 20px;
+   width: 100px;
+
+}
+ #item1{
+  /*width: 300px;*/
+   width:300px;
+   background-color: #1E1227;
+   margin-left: 200px;
+   border-radius: 4px;
+   font-size: 12px;
+    color:  #403F47;
+
+}
+#item2{
+ overflow: scroll;
+ width: 600px; 
+ background-color:#EBE8EE;
+ border-radius: 4px;
+ font-size: 13px;
+ font-family:Raleway; 
+ color: #6C6571;
+ cursor: pointer;
+}
+@media (max-width: 991px) {
+  .flex-container {
+      flex-direction: column;
+    }
+    #item1{
+     width: 60%;
+     flex:90%;
+     margin-left: 20px;
+   }
+   #item2 {
+    flex: 30%;
+    width: 80%;
+    height: 100%;
+   }
+    
+  
+  }
+.test{
+   
+    margin-left: 3px;
+    font-family: Fieldwork; 
+}
+
+h2 {
+	     font-size: 14px;
+	     font-style: bold;
+	     text-align: left;
+	     color: #A983C0;
+	      margin-bottom: 0;
+	      font-family: Gill Sans MT ;
+}
+
+
+#text{
+  margin-top:7px;
+  width: 90%;
+  height: 80px;
+  flex:5%;
+  color: #D2CFD4;
+  border:1px solid #3E3C5A;
+  background-color: #100219;
+  margin-bottom: 3px;
+  border-radius: 2px 2px 2px 2px;
+
+}
+#btn{
+  width: 30%;
+  height: 4vh;
+  color: #e8e9eb;
+  background-color: #0f0c30;
+  border:none;
+  border-radius: 2px 2px;
+  font-family: Segoe UI;
+  margin-left: 172px;
+}
+.element{
+	margin-left: 12px;
+}
+#T2{
+	color:#1A0A24;
+	font-size: 15px;
+}
+
+::-webkit-scrollbar {
+  width: 6px;
+  height: 5px;
+}
+
+
+::-webkit-scrollbar-thumb {
+  background:#3E3C5A ; 
+  
+  
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background-color:#2E2336; 
+}
+.affichage{
+   margin-left: 30px;
+	font-size:12px;
+	background-color:  #EBCCFF;  /*#EBCCFF*/
+	margin-bottom: 0;
+}
+#Pseudo{
+	font-size:15px;
+   color:#2E2336;
+   font-family: MV Boli;
+}
+
+.form-group{
+ padding-top:1px;
+ flex:4%;
+}
+
+.rating_1  span{
+  padding-top: 10px;
+  font-size: 12px;
+
+}
+.checked {
+  color: orange;
+}
+.rating_1 i{
+  padding-top: 10px;
+  font-size: 20px;
+  color: #a995a6;
+
+}
+ul{
+  margin-left: 20%;
+
+}
+button{
+  margin-top: 2%;
+  margin-left: 2px;
+  font-size: 20px;
+   color:  #100219;
+   background-color: #EBE8EE;
+   font-family: Raleway;
+   border :solid 0;
+    border-radius: 20px 23px;
+   
+ }
+ 
